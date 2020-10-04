@@ -1,5 +1,5 @@
 {
-  "name": "woolso-word-filter",
+  "name": "whoolso-word-filter",
   "version": "1.0.0",
   "description": "A flexible, smart word filter to prevent profanity or whatever whatever suits your taste.",
   "main": "index.js",
@@ -8,19 +8,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lietsaki/woolso-word-filter.git"
+    "url": "git+httpns://github.com/Lietsaki/whoolso-word-filter.git"
   },
   "keywords": [
     "word-filter",
     "filter",
     "profanity",
     "javascript",
-    "woolso"
+    "whoolso"
   ],
   "author": "Ricardo Sandez - https://github.com/Lietsaki/",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Lietsaki/woolso-word-filter/issues"
+    "url": "https://github.com/Lietsaki/whoolso-word-filter/issues"
   },
-  "homepage": "https://github.com/Lietsaki/woolso-word-filter#readme"
+  "homepage": "https://github.com/Lietsaki/whoolso-word-filter#readme"
 }

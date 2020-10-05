@@ -39,8 +39,7 @@ Argument Definitions:
   write it without spaces `'badperson'`.  
    There's no need to add the plural version of a word unless the grammar varies, for instance, if one of your words is `'idiot'`, it
   is not necessary to add `'idiots'` because it contains the root of the word, which is what interests us. It's not necessary to add the leet versions
-  of your word either (ex. `'1d1ot'`). If you want to be really strict, it's advisable to add misspelled versions of the word (ex. `'stupid'` could be
-  intentionally misspelled as `'stupd'`).
+  of your word either (ex. `'1d1ot'`). If you want to be really strict, it'd be a good idea to add misspelled versions of the word (ex. `'stupid'` could be intentionally misspelled as `'stupd'`).
 
 ```javascript
 // Suppose we want to filter some political terms. Our wordsToFilter array could be something like this:

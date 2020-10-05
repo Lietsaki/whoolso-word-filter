@@ -76,10 +76,15 @@ const filterWords = (configObj) => {
     word.replace(/[^a-zA-Z\d\s:]/g, '')
   );
 
-  // 3) If there are words separated by spaces (ex. 'i', 'd', 'i', 'o', 't'), join them.
+  // 3) Same as above but removing numbers as well
+  wordsInArrayOnlyLetters = wordsInArray.map((word) =>
+    word.replace(/[^a-zA-Z]/g, '')
+  );
+
+  // 4) If there are words separated by spaces (ex. 'i', 'd', 'i', 'o', 't'), join them.
   const concatenatedWords = concatenate(wordsInArrayNoSigns, lengthThreshold);
 
-  // 4) Replace consecutive duplicated characters in the string (ex. 'iidiot') and create an array with its result.
+  // 5) Replace consecutive duplicated characters in the string (ex. 'iidiot') and create an array with its result.
   // wordsInArrayNoConsDup will help us find words that become short when removing their duplicated letter, for
   // instance 'liib' ---> 'lib'
   const stringNoConsecutiveDuplicate = stringToCheck.replace(/(.)\1+/g, '$1');
@@ -88,7 +93,7 @@ const filterWords = (configObj) => {
     .trim()
     .split(/\s+/g);
 
-  // 5) Translate the possible leet in each individual word whose duplicated consecutive characters have NOT been removed.
+  // 6) Translate the possible leet in each individual word whose duplicated consecutive characters have NOT been removed.
   // Ex. 'dumba$$' ---> 'dumbass'.
   const individualWordsLeeted1 = wordsInArray.map((word) =>
     leetToText(leetAlphabet1, word, true)
@@ -98,7 +103,7 @@ const filterWords = (configObj) => {
     leetToText(leetAlphabet2, word, true)
   );
 
-  // 6) Translate the possible leet in each individual word whose duplicated consecutive characters have been removed.
+  // 7) Translate the possible leet in each individual word whose duplicated consecutive characters have been removed.
   // Ex. 'l11b' ---> 'lib'.
   const individualWordsNoConsDupLeeted1 = wordsInArrayNoConsDup.map((word) =>
     leetToText(leetAlphabet1, word, true)
@@ -108,7 +113,7 @@ const filterWords = (configObj) => {
     leetToText(leetAlphabet2, word, true)
   );
 
-  // 7) Translate the whole sentence with no consecutive dups to check if there's leet in it (ex. '1diot');
+  // 8) Translate the whole sentence with no consecutive dups to check if there's leet in it (ex. '1diot');
   const translatedLeet1 = leetToText(
     leetAlphabet1,
     stringNoConsecutiveDuplicate,
@@ -121,13 +126,23 @@ const filterWords = (configObj) => {
     true
   );
 
-  // 8) Check for any occurence - Note how strings and arrays have their own indexOf method.
-  // Note how individualWordsLeeted1 and 2 are repeated in both the if and else if statement.
+  // 9) Check for any occurence - Note how strings and arrays have their own indexOf method.
+  // Also, individualWordsLeeted1 and 2 are repeated in both the if and else if statement.
   // That's because we need to check for leet in both versions of the string: with consecutive
   // duplicates and without them in and this applies to long and short words as well.
   let foundWords = [];
   for (let i = 0; i != wordsToFilter.length; i++) {
     const word = wordsToFilter[i];
+
+    wordsInArrayOnlyLetters.forEach((wordOnlyLetters) => {
+      if (
+        word.length > shortWordLength &&
+        !shortWordExceptions.includes(word) &&
+        wordOnlyLetters.indexOf(word) != -1
+      ) {
+        foundWords.push(word);
+      }
+    });
 
     if (
       word.length > shortWordLength &&

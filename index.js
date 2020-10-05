@@ -1,61 +1,3 @@
-const textToLeetAlphabet1 = {
-  A: '@',
-  B: '8',
-  C: '(',
-  D: 'D',
-  E: '3',
-  F: 'F',
-  G: '6',
-  H: '#',
-  I: '!',
-  J: 'J',
-  K: 'K',
-  L: '1',
-  M: 'M',
-  N: 'N',
-  O: '0',
-  P: 'P',
-  Q: 'Q',
-  R: 'R',
-  S: '$',
-  T: '6',
-  U: 'U',
-  V: 'V',
-  W: 'W',
-  X: 'X',
-  Y: 'Y',
-  Z: '2'
-};
-
-const textToLeetAlphabet2 = {
-  A: '4',
-  B: '8',
-  C: '(',
-  D: '<|',
-  E: '€',
-  F: 'PH',
-  G: '9',
-  H: '|-|',
-  I: '1',
-  J: 'J',
-  K: 'K',
-  L: '|',
-  M: '|\\/|',
-  N: '|\\|',
-  O: '0',
-  P: '|2',
-  Q: 'Q',
-  R: 'R',
-  S: '5',
-  T: '+',
-  U: '|_|',
-  V: '/',
-  W: '//',
-  X: '><',
-  Y: `'/`,
-  Z: '2'
-};
-
 // Join items in an array if they have X length or less and if the next or previous item in the array also has the same length.
 // Ex. suppose lengthThreshold is 3, ['mo', 'ro', 'n'] would return 'moron'.
 const concatenate = (array, lengthThreshold) => {
@@ -216,7 +158,5 @@ const filterWords = (configObj) => {
 };
 
 module.exports = {
-  textToLeetAlphabet1,
-  textToLeetAlphabet2,
   filterWords
 };

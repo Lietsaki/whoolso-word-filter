@@ -1,6 +1,6 @@
 {
   "name": "whoolso-word-filter",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A flexible, smart word filter to prevent profanity or whatever whatever suits your taste.",
   "main": "index.js",
   "scripts": {

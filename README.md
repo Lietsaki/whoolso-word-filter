@@ -240,3 +240,9 @@ configObj.stringToCheck = `They are good people and I love them`;
 
 console.log(filterWords(configObj)); // []
 ```
+
+**Note:** If you want to filter words that have two consecutive letters (ex. 'dumbass'), it's advisable to add the
+versions with only one letter to `wordsToFilter` to make sure the filter is able to catch them (ex. 'dumbas').
+This is because when checking for leet we remove the duplicated letters, so if someone writes something like
+`'hello dumba$$hoe'`, combining leet in a word with two consecutive letters and then adding another word without spaces
+will be able to pass if you haven't added the version of the word with only one letter, 'dumbas' in this case.

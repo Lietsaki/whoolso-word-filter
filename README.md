@@ -1,9 +1,10 @@
 # whoolso-word-filter
+
 A flexible, smart word filter to prevent profanity or whatever whatever suits your taste.
 
 ## Installing
 
-``npm i whoolso-word-filter``
+`npm i whoolso-word-filter`
 
 ```js
 const { filterWords } = require('whoolso-word-filter');
@@ -18,7 +19,7 @@ the words/phrases found inside a given string.
 
 The config object allows you to configure the filter as much as possible. Take the following example:
 
-``` javascript
+```javascript
 const configObj = {
   wordsToFilter,
   stringToCheck,
@@ -31,16 +32,17 @@ const configObj = {
 
 const foundWords = filterWords(configObj);
 ```
+
 Argument Definitions:
 
-1. **wordsToFilter:** An array containing all the words that you want to filter as strings. If you want to filter phrases, for example `'bad person'`, you'll have to 
-write it without spaces `'badperson'`.    
-There's no need to add the plural version of a word unless the grammar varies, for instance, if one of your words is `'idiot'`, it
-is not necessary to add `'idiots'` because it contains the root of the word, which is what interests us. It's not necessary to add the leet versions 
-of your word either (ex. `'1d1ot'`). If you want to be really strict, it's advisable to add misspelled versions of the word (ex. `'stupid'` could be 
-intentionally misspelled as `'stupd'`).
+1. **wordsToFilter:** An array containing all the words that you want to filter as strings. If you want to filter phrases, for example `'bad person'`, you'll have to
+   write it without spaces `'badperson'`.  
+   There's no need to add the plural version of a word unless the grammar varies, for instance, if one of your words is `'idiot'`, it
+   is not necessary to add `'idiots'` because it contains the root of the word, which is what interests us. It's not necessary to add the leet versions
+   of your word either (ex. `'1d1ot'`). If you want to be really strict, it's advisable to add misspelled versions of the word (ex. `'stupid'` could be
+   intentionally misspelled as `'stupd'`).
 
-``` javascript
+```javascript
 // Suppose we want to filter some political terms. Our wordsToFilter array could be something like this:
 
 const wordsToFilter = [
@@ -54,28 +56,28 @@ const wordsToFilter = [
   'repblicn',
   'lefty',
   'lfty',
-  'lftwing',
-]
+  'lftwing'
+];
 ```
 
 Also, make sure all the words you add are lowercase. The filter converts the string you want to check to lowercase, so array of wordsToFilter must be all lowercase too.
 
 2. **stringToCheck:** The string that you want to check.
 
-``` js
+```js
 const stringToCheck = `I am a political comment whose unique goal is to say the word republican.`;
 ```
 
-3. **lengthThreshold**: The length of syllabes in which you want to find words separated by spaces. `'I am here to say the word r e p u b l i c a n'` will catch 
-`'republican'` if the value of `lengthThreshold` is at least 1. If it's 2, `'re pu bl ic an'` would be caught as well and so on. The larger you set this option to, the more 
-prone you will be to false positives, so I wouldn't suggest using a number larger than 3, but that depends on your needs.
+3. **lengthThreshold**: The length of syllabes in which you want to find words separated by spaces. `'I am here to say the word r e p u b l i c a n'` will catch
+   `'republican'` if the value of `lengthThreshold` is at least 1. If it's 2, `'re pu bl ic an'` would be caught as well and so on. The larger you set this option to, the more
+   prone you will be to false positives, so I wouldn't suggest using a number larger than 3, but that depends on your needs.
 
 4. **leetAlphabet1 and leetAlphabet2**: The function will perform two leet translations in the text. Given the wordsToFilter array shown above, take these
-sentences `'I am here to say the word republic@n'` and `'I am here to say the word republ1c4n'`, both of them will be caught as 'republican'.
+   sentences `'I am here to say the word republic@n'` and `'I am here to say the word republ1c4n'`, both of them will be caught as 'republican'.
 
 leetAlphabet1 and leetAlphabet2 must have the following format:
 
-``` js
+```js
 const textToLeetAlphabet1 = {
   A: '@',
   B: '8',
@@ -137,25 +139,24 @@ const textToLeetAlphabet2 = {
 
 If you require a more advanced leet filter, translate the string's leet before passing it inside the filter's config object.
 
-5. **shortWordLength:** A number indicating the length from which you consider a word to be 'short'. This property helps to reduce the number of false positves, as some 
-short words might be contained inside longer words. I recommend you to leave this option as 3.
+5. **shortWordLength:** A number indicating the length from which you consider a word to be 'short'. This property helps to reduce the number of false positves, as some
+   short words might be contained inside longer words. I recommend you to leave this option as 3.
 
 `// Setting this option to 3 means 'In my case, short words are those with a length of 3 or less characters.'`
 
 6. **shortWordExceptions:**: Words that even though exceed the defined `shortWordLength`, they must be treated as short words. 'meth' is a good example, say you want to
-filter drug names, but a string containing the word 'something' returns 'meth'. You could set your shortWordLength to 4 to solve this, but that could cause some other 
-false positives. `shortWordExceptions` is the solution for these cases:
+   filter drug names, but a string containing the word 'something' returns 'meth'. You could set your shortWordLength to 4 to solve this, but that could cause some other
+   false positives. `shortWordExceptions` is the solution for these cases:
 
-``` js
-const shortWordExceptions = ['meth']
-
+```js
+const shortWordExceptions = ['meth'];
 ```
 
 ## Examples
 
 Consider the following `configObject`, where the leet alphabets are the same as the ones shown above.
 
-``` js
+```js
 const wordsToFilter = ['uneducated', 'republican', 'meth'];
 const shortWordExceptions = ['meth'];
 
@@ -172,7 +173,7 @@ const configObj = {
 
 1. **Normal sentence**
 
-``` js
+```js
 configObj.stringToCheck = `They are something else, uneducated republicans`;
 
 console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
@@ -180,7 +181,7 @@ console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
 
 2. **Putting signs between each letter**
 
-``` js
+```js
 configObj.stringToCheck = `They are something else, un$edu'ca[]\`te()d" republicans`;
 
 console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
@@ -190,7 +191,7 @@ console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
 
 It doesn't matter how many spaces you use, the word will be detected anyways.
 
-``` js
+```js
 configObj.stringToCheck = `They are something else, u n e d u c a t e d republicans`;
 
 console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
@@ -198,16 +199,17 @@ console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
 
 4. **Writing the word in all caps**
 
-``` js
+```js
 configObj.stringToCheck = `They are something else, UNEDUCATED republicans`;
 
 console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
 ```
+
 Alternating between upper and lowercase gives the same result, ex. `'uNeDuCatEd'`.
 
 5. **Replacing some letters with numbers and signs / using leet**
 
-``` js
+```js
 configObj.stringToCheck = `They are something else, un3duc@t3d republicans`;
 
 console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
@@ -215,7 +217,7 @@ console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
 
 6. **Duplicating letters**
 
-``` js
+```js
 configObj.stringToCheck = `They are something else, uneeduuuucaa@t333ed republicans`;
 
 console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
@@ -223,18 +225,17 @@ console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
 
 7. **Writing without spaces**
 
-``` js
+```js
 configObj.stringToCheck = `They are something elseuneeeduucatedrepublicans`;
 
 console.log(filterWords(configObj)); // [ 'uneducated', 'republican' ]
 ```
 
-
-7. **What if the sentence doesn't have any of the words to filter?**
+8. **What if the sentence doesn't have any of the words to filter?**
 
 An empty array will be returned.
 
-``` js
+```js
 configObj.stringToCheck = `They are good people and I love them`;
 
 console.log(filterWords(configObj)); // []

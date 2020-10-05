@@ -134,6 +134,7 @@ const filterWords = (configObj) => {
   for (let i = 0; i != wordsToFilter.length; i++) {
     const word = wordsToFilter[i];
 
+    // Check for the words in the string with only letters
     wordsInArrayOnlyLetters.forEach((wordOnlyLetters) => {
       if (
         word.length > shortWordLength &&
@@ -142,8 +143,16 @@ const filterWords = (configObj) => {
       ) {
         foundWords.push(word);
       }
+      if (
+        word.length <= shortWordLength &&
+        !shortWordExceptions.includes(word) &&
+        wordOnlyLetters.indexOf(word) != -1
+      ) {
+        foundWords.push(word);
+      }
     });
 
+    // Check for the words in all the other types of string
     if (
       word.length > shortWordLength &&
       !shortWordExceptions.includes(word) &&

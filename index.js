@@ -136,24 +136,27 @@ const filterWords = (configObj) => {
 
     // Check for the words in the string with only letters
     wordsInArrayOnlyLetters.forEach((wordOnlyLetters) => {
-      if (
-        word.length > shortWordLength &&
-        !shortWordExceptions.includes(word) &&
-        wordOnlyLetters.indexOf(word) != -1
-      ) {
-        foundWords.push(word);
-      }
-      if (
-        word.length <= shortWordLength &&
-        !shortWordExceptions.includes(word) &&
-        wordOnlyLetters.indexOf(word) != -1
-      ) {
-        foundWords.push(word);
+      if (!foundWords.includes(word)) {
+        if (
+          word.length > shortWordLength &&
+          !shortWordExceptions.includes(word) &&
+          wordOnlyLetters.indexOf(word) != -1
+        ) {
+          foundWords.push(word);
+        }
+        if (
+          word.length <= shortWordLength &&
+          !shortWordExceptions.includes(word) &&
+          wordOnlyLetters.indexOf(word) != -1
+        ) {
+          foundWords.push(word);
+        }
       }
     });
 
     // Check for the words in all the other types of string
     if (
+      !foundWords.includes(word) &&
       word.length > shortWordLength &&
       !shortWordExceptions.includes(word) &&
       (wordsInArrayNoSigns.indexOf(word) != -1 ||
@@ -167,6 +170,7 @@ const filterWords = (configObj) => {
     ) {
       foundWords.push(word);
     } else if (
+      !foundWords.includes(word) &&
       (word.length <= shortWordLength || shortWordExceptions.includes(word)) &&
       (wordsInArrayNoSigns.includes(word) === true ||
         wordsInArrayNoConsDup.includes(word) === true ||
